@@ -19,7 +19,7 @@ from pennylane.wires import Wires
 dev = qml.device('default.qubit', wires = 7)
 
 @qml.template
-def BasisEmbedding(wires, features):
+def BasisEmbedding(features, wires):
 	'''
 	Basis Embedding:
 		Helps in construction of computational basis state e.g. |01>.
@@ -40,15 +40,14 @@ def BasisEmbedding(wires, features):
 		raise ValueError("Features {} and Wires {} have different dimensions".format(np.shape(features), np.shape(wires)))
 
 @qml.qnode(dev)
-def circuit(wires, features):
-	BasisEmbedding(wires, features)
+def circuit(features):
+	BasisEmbedding(features, wires = range(7))
 	return qml.probs(wires = 0)
 
-
-wires = range(7)    # Iterable format of wires argument 
+# wires = range(7)    # Iterable format of wires argument 
 features = np.array([0, 0, 0, 1, 1, 0, 1])
 
-print(circuit(wires, features))
+print(circuit(features))
 # print(circuit.draw())
 drawer = qml.draw(circuit)
-print(drawer(wires = wires, features = features))
+print(drawer(features = features))
