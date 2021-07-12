@@ -37,7 +37,7 @@ def BasisEmbedding(features, wires):
 			if bit == 1:
 				qml.PauliX(wires = wire)
 	else:
-		raise ValueError("Features {} and Wires {} have different dimensions".format(np.shape(features), np.shape(wires)))
+		raise ValueError("Features [{}] and Wires [{}] have different shapes".format(np.shape(features)[0], np.shape(wires)[0]))
 
 @qml.qnode(dev)
 def circuit(features):
@@ -51,3 +51,9 @@ print(circuit(features))
 # print(circuit.draw())
 drawer = qml.draw(circuit)
 print(drawer(features = features))
+
+'''
+qml.templates.state_preparation.basis.BasisStatePreparation and qml.templates.BasisEncoding
+are essentially the same functions. 
+Also, the use of PauliX gate requires these functions to be first only.
+'''

@@ -29,7 +29,7 @@ def AmplitudeEmbedding(features, wires):
 	if len(features) == 2**len(wires):
 		QubitStateVector(features, wires = wires)
 	else:
-		raise ValueError("Features {} should have the dimension ({},)".format(np.shape(features), 2**len(wires)))
+		raise ValueError("Features [{}] should have the shape [{}]".format(np.shape(features)[0], 2**len(wires)))
 
 @qml.qnode(dev)
 def circuit(features):
